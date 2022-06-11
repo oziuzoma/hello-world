@@ -34,11 +34,24 @@ jobs:
           command: |
             echo "World"
 
+  print_message:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run:
+          name: "Say World"
+          command: |
+            echo "This is my first Pipeline by Ozi Uzoma"
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  udacity-workflow:
     jobs:
       - print_hello
       - print_world:
           requires: [print_hello]
+      - print_message:
+          requires: [print_hello,print_world]
+          
