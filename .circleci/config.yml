@@ -34,9 +34,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Say My Name"
+          name: "Echo my name from an env variable"
           command: |
-            echo $USERNAME
+            echo $MY_ENV_VAR
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
