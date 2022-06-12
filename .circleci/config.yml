@@ -46,9 +46,9 @@ jobs:
       - run:
           name: "save an output to a file"
           command: |
-            echo "hello Oziuzoma" > ~/output.txt 
+            echo "hello world" > /tmp/workspace/output.txt 
       - persist_to_workspace:
-          root: ~/
+          root: /tmp/workspace
           paths:
             - output.txt 
 
@@ -58,11 +58,11 @@ jobs:
     steps:
       - checkout 
       - attach_workspace:
-          at: ~/
+          at: /tmp/workspace
       - run:
           name: "retrieve an output from a file"
           command: |
-            cat ~/output.txt
+            cat /tmp/workspace/output.txt
      
      
 
