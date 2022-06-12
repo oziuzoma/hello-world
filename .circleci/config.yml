@@ -46,7 +46,7 @@ jobs:
       - run:
           name: "save an output to a file"
           command: |
-            echo "hello world" > ~/output.txt 
+            echo "hello Oziuzoma" > ~/output.txt 
       - persist_to_workspace:
           root: ~/
           paths:
