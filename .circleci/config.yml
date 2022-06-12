@@ -4,48 +4,79 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  print_hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: circleci/node:13.8.0
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: |
-            echo "Hello"
+  # print_hello:
+  #   # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+  #   # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   # Add steps to the job
+  #   # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: "Say hello"
+  #         command: |
+  #           echo "Hello"
 
-  print_world:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - checkout
-      - run:
-          name: "Say World"
-          command: |
-            echo "World"
+  # print_world:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: "Say World"
+  #         command: |
+  #           echo "World"
 
-  print_name:
+  # print_name:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: "Echo my name from an env variable"
+  #         command: |
+  #           echo $USERNAME
+  
+  save_hello_world_output:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
-          name: "Echo my name from an env variable"
+          name: "save an output to a file"
           command: |
-            echo $USERNAME
+            echo "hello world" > output.txt 
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - output.txt 
+
+  print_output_file:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run:
+          name: "retrieve an output from a file"
+          command: |
+            cat output.txt 
+      - attach_workspace:
+          at: /tmp/workspace
+     
+     
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   udacity-workflow:
     jobs:
-      - print_hello
-      - print_world:
-          requires: [print_hello]
-      - print_name:
-          requires: [print_hello,print_world]
+      # - print_hello
+      # - print_world:
+      #     requires: [print_hello]
+      # - print_name:
+      #     requires: [print_hello,print_world]
+      - save_hello_world_output
+      - print_output_file:
+          requires: [save_hello_world_output]
           
