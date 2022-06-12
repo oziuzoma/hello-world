@@ -58,7 +58,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "retrieve an output from a file"
+          name: "retrieve an output from a file gggggggg"
           command: |
             cat output.txt 
       - attach_workspace:
