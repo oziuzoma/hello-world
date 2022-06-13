@@ -88,7 +88,7 @@ jobs:
       - run:
           name: "Fail intentionally"
           command: |
-            return 1
+            exit 1
             
       - run:
           name: "Do this on fail"
