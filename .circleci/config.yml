@@ -113,7 +113,8 @@ workflows:
           requires: [save_hello_world_output]
       - command_test:
           requires: [print_output_file]
-      - failure
+      - failure:
+          requires: [command_test]
         
            
           
