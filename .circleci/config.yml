@@ -79,6 +79,23 @@ jobs:
     steps:
       - checkout
       - print_pipeline_id
+    
+  failure:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run:
+          name: "Fail intentionally"
+          command: |
+            return 1
+            
+      - run:
+          name: "Do this on fail"
+          command: |
+            echo "Pipeline has failed"
+          when: on_fail
+     
      
 
 # Invoke jobs via workflows
@@ -95,4 +112,7 @@ workflows:
       - print_output_file:
           requires: [save_hello_world_output]
       - command_test
+          requires: [print_output_file]
+      - failure
+           
           
