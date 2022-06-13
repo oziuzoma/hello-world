@@ -93,7 +93,7 @@ jobs:
       - run:
           name: "Do this on fail"
           command: |
-            echo "Pipeline has failed"
+            echo "Pipeline has failed!"
           when: on_fail
      
      
@@ -111,7 +111,9 @@ workflows:
       - save_hello_world_output
       - print_output_file:
           requires: [save_hello_world_output]
-      - command_test
+      - command_test:
+          requires: [print_output_file]
       - failure
+        
            
           
