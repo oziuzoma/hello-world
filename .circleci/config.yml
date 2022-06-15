@@ -126,7 +126,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: "retrieve an output from a file"
+          name: "retrieve an output"
           command: |
             cat ~/inventory.txt
   
