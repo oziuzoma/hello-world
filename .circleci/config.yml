@@ -114,7 +114,7 @@ jobs:
                   --filters "Name=tag:Project,Values=udacity" \
                   --output text >> /etc/ansible/inventory
       - persist_to_workspace:
-          root: /etc.ansible
+          root: /etc/ansible
           paths:
             - inventory
 
