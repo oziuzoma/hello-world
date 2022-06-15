@@ -104,11 +104,11 @@ jobs:
       - run:
           name: "Add [all] to inventory"
           command: |
-            sudo echo "[all]" > /etc/ansible/inventory 
+            echo "[all]" > /etc/ansible/inventory 
       - run:
           name: "Add Public IP to inventory"
           command: |
-            sudo aws ec2 describe-instances \
+            aws ec2 describe-instances \
             \
                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
                   --filters "Name=tag:Project,Values=udacity" \
@@ -128,7 +128,7 @@ jobs:
       - run:
           name: "retrieve an output from a file"
           command: |
-            sudo cat etc/ansible/inventory
+            cat etc/ansible/inventory
   
 
 # Invoke jobs via workflows
