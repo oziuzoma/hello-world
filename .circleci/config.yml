@@ -106,7 +106,7 @@ jobs:
           command: |
             echo "[all]" > ~/inventory.txt
       - run:
-          name: "Add Public IP to inventory"
+          name: "Add Public IP to invtory"
           command: |
             aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=Udacity" --output text >> ~/inventory.txt
       - persist_to_workspace:
