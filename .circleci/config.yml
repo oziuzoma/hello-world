@@ -102,19 +102,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Configure AWS CLI creds"
-          command: |
-            echo "[default]" > ~/.aws/credentials
-            echo "aws_access_key_id = $ACCESSKEY" >> ~/.aws/credentials
-            echo "aws_secret_access_key = $SECRETKEY" >>  ~/.aws/credentials         
-      - run:
           name: "Add [all] to inventory"
           command: |
             echo "[all]" > ~/inventory.txt
       - run:
           name: "Add Public IP to inventory"
           command: |
-            aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=Udacity" --output text >> ~/inventory.txt --region us-east-1
+            aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=Udacity" --output text >> ~/inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
