@@ -104,7 +104,7 @@ jobs:
       - run:
           name: "Add [all] to inventory"
           command: |
-            echo "[all]" > /etc/ansible/inventory 
+            echo "[all]" > ~/inventory.txt
       - run:
           name: "Add Public IP to inventory"
           command: |
@@ -112,11 +112,11 @@ jobs:
             \
                     --query 'Reservations[*].Instances[*].PublicIpAddress' \
                   --filters "Name=tag:Project,Values=udacity" \
-                  --output text >> /etc/ansible/inventory
+                  --output text >> ~/inventory.txt
       - persist_to_workspace:
-          root: /etc/ansible
+          root: ~/
           paths:
-            - inventory
+            - inventory.txt
 
   print_inventory:
     docker:
@@ -124,11 +124,11 @@ jobs:
     steps:
       - checkout 
       - attach_workspace:
-          at: /etc/ansible
+          at: ~/
       - run:
           name: "retrieve an output from a file"
           command: |
-            cat etc/ansible/inventory
+            cat ~/inventory.txt
   
 
 # Invoke jobs via workflows
