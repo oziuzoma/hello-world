@@ -148,8 +148,8 @@ workflows:
       #     requires: [print_output_file]
       # - failure:
       #     requires: [command_test]
-      -inventory
-      -print_inventory:
+      - inventory
+      - print_inventory:
           requires: [inventory]
         
            
